@@ -266,7 +266,8 @@
                 <span class="link-text nav-text">Historial</span>
             </a>
         </li>
-        {% if user.is_authenticated %}
+
+        {% if user.is_staff %}
         <li class="nav-link">
             <a href="{% url 'mostrar_administracion'%}">
                 <i class="bx bx-package icon"></i>
@@ -274,6 +275,7 @@
             </a>
         </li>
         {% endif %}
+
         {% if user.is_authenticated == False %}
         <li class="nav-link">
             <a href="{% url 'mostrar_entrar'%}">
