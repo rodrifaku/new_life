@@ -1,0 +1,126 @@
+{% extends 'padre/base.html' %}
+{% load static %}
+{% load myfilters %}
+
+{% block titulo %}
+Historial de Compras
+{% endblock titulo %}
+{% block css %}
+
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap');
+
+    body {
+        background-image: url(/static/img/fondo.jpg);
+        font-family: 'Open Sans', sans-serif;
+    }
+
+    #contenedor {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        padding: 50px;
+    }
+
+    #tabla-contenedor {
+        width: 80%;
+        max-width: 800px;
+        background-color: rgba(4, 4, 50, 0.7);
+        /* color semi-transparente */
+        padding: 20px;
+        border: 2px solid #bdbdbd;
+        border-radius: 10px;
+        color: #333;
+        margin-bottom: 20px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        background-color: white
+    }
+
+    th,
+    td {
+        border: 1px solid #bdbdbd;
+        padding: 10px;
+        text-align: left;
+        color: black;
+        /* Cambio del color del texto a negro */
+    }
+
+    td:nth-child(3) {
+        text-align: right;
+        font-weight: bold;
+    }
+
+    th {
+        background-color: #040432;
+        color: #fff;
+    }
+
+    .button {
+        display: inline-block;
+        width: 100px;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: 600;
+        background-color: #edb00a;
+        border-radius: 10px;
+        padding: 10px;
+        margin: 5px;
+        color: #040432;
+        text-decoration: none;
+        text-align: center;
+        transition: background-color 0.3s ease;
+        border: 2px solid #040432;
+    }
+
+    .button:hover {
+        background-color: transparent;
+        border: 2px solid #bdbdbd;
+        color: #040432;
+    }
+</style>
+{% endblock css %}
+
+{% block contenido %}
+
+<div>
+    <h1>Historial de Ventas</h1>
+
+    {% if compras %}
+
+
+
+
+    <table>
+        <tr>
+            <th>Boleta de venta Nº</th>
+            <th>Usuario</th>
+            <th>Fecha</th>
+            <th>Total</th>
+
+        </tr>
+        {% for compra in compras %}
+        <tr>
+            <td><a href="{% url 'mostrar_boleta' compra.id %}">{{ compra.id}}</a></td>
+            <td>{{compra.user}}</td>
+            <td>{{ compra.fecha_venta }}</td>
+            <td>$ {{ compra.total|intcomma}}</td>
+        </tr>
+        {% endfor %}
+
+    </table>
+    {% else %}
+    <p>No tienes compras realizadas.</p>
+    {% endif %}
+    <button type="button" onclick="window.history.back();" class="button">Volver</button>
+</div>
+
+
+
+{% endblock contenido %}
+{% block footer %}
+{% endblock footer %}

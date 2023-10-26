@@ -1,0 +1,309 @@
+{% load static %}
+<style>
+    :root {
+        font-size: 16px;
+        font-family: 'Open Sans';
+        --text-primary: #b6b6b6;
+        --text-secondary: #ececec;
+        --bg-primary: #edb00a;
+        --bg-secondary: #040432;
+        --transition-speed: 600ms;
+    }
+
+    body {
+        color: rgb(246, 240, 240);
+        background-color: white;
+        margin: 0;
+        padding: 0;
+        font-family: 'Poppins', sans-serif;
+    }
+
+    body::-webkit-scrollbar {
+        width: 0.25rem;
+    }
+
+    body::-webkit-scrollbar-track {
+        background: #e9e9ed;
+    }
+
+    body::-webkit-scrollbar-thumb {
+        background: #efedf2;
+    }
+
+    main {
+        margin-left: 5.5rem;
+        padding: 3rem;
+    }
+
+    .navbar {
+
+        position: fixed;
+        background-color: var(--bg-primary);
+        transition: width 600ms ease;
+        overflow: scroll;
+    }
+
+    .navbar-nav {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        height: 100%;
+    }
+
+    .nav-item {
+        width: 100%;
+    }
+
+    .nav-item:last-child {
+        margin-top: auto;
+    }
+
+    .nav-link {
+
+        list-style: none;
+        line-height: 42px;
+        width: 13em;
+        display: flex;
+        align-items: center;
+        height: 5rem;
+        color: var(--text-primary);
+        filter: grayscale(100%) opacity(0.7);
+        transition: var(--transition-speed);
+        text-transform: uppercase;
+
+    }
+
+    .nav-link a {
+        text-decoration: none;
+        width: 100%;
+        padding-left: 1.8em;
+        text-align: start;
+    }
+
+
+    .nav-link:hover {
+
+        filter: grayscale(0%) opacity(1);
+        background: var(--bg-secondary);
+        color: var(--text-secondary);
+
+    }
+
+    .link-text {
+        color: white;
+        display: none;
+        margin-left: 1rem;
+    }
+
+    .nav-link svg {
+        width: 2rem;
+        min-width: 2rem;
+        margin: 0 1.5rem;
+    }
+
+    .fa-primary {
+        color: #ff7eee;
+    }
+
+    .fa-secondary {
+        color: #df49a6;
+    }
+
+    .fa-primary,
+    .fa-secondary {
+        transition: var(--transition-speed);
+    }
+
+    .logo {
+        font-weight: bold;
+        text-transform: uppercase;
+        margin-bottom: 1rem;
+        text-align: center;
+        color: var(--text-secondary);
+        background: var(--bg-secondary);
+        font-size: 1rem;
+        letter-spacing: 0.3ch;
+        width: 100%;
+    }
+
+    .logo svg {
+        transform: rotate(0deg);
+        transition: var(--transition-speed);
+    }
+
+    .logo-text {
+        display: inline;
+        position: absolute;
+        left: -999px;
+        transition: var(--transition-speed);
+    }
+
+    .navbar:hover .logo svg {
+        transform: rotate(-180deg);
+    }
+
+    /* Small screens */
+    @media only screen and (max-width: 600px) {
+        .navbar {
+            bottom: 0;
+            width: 100vw;
+            height: 5rem;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            display: none;
+        }
+
+        .navbar-nav {
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-around;
+        }
+
+
+
+        .nav-link {
+            width: auto;
+            height: auto;
+            justify-content: center;
+            padding: 0.5rem 0.5rem;
+
+
+        }
+
+        .navbar:hover {
+            width: 100%;
+        }
+
+        .navbar:hover .logo svg {
+            margin-left: 0;
+        }
+
+        .navbar:hover .logo-text {
+            left: -999px;
+        }
+
+        main {
+            margin: 0;
+        }
+    }
+
+    /* Large screens */
+    @media only screen and (min-width: 600px) {
+        .navbar {
+            top: 0;
+            width: 5rem;
+            height: 100vh;
+        }
+
+        .navbar:hover {
+            width: 13rem;
+        }
+
+        .navbar:hover .link-text {
+            display: inline;
+        }
+
+        .navbar:hover .logo svg {
+            margin-left: 11rem;
+        }
+
+        .navbar:hover .logo-text {
+            left: 0px;
+        }
+    }
+</style>
+
+
+<link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+
+<nav class="navbar">
+
+    <ul class="navbar-nav">
+
+
+        {% if user.is_authenticated %}
+        <li class="logo">
+
+            <a href="#" class="nav-link">
+                <span class="link-text logo-text text-center">Hola {{ user.first_name }}</span>
+            </a>
+        </li>
+        {% else %}
+        <li class="logo">
+            <a href="#" class="nav-link">
+                <span class="link-text logo-text text-center">Venta de Productos</span>
+            </a>
+        </li>
+        {% endif %}
+
+
+        <li class="nav-link">
+            <a href="{% url 'mostrar_principal'%}">
+                <i class="bx bx-home-smile icon"></i>
+                <span class="link-text nav-text">Inicio</span>
+            </a>
+        </li>
+        <li class="nav-link">
+            <a href="{% url 'mostrar_productos'%}">
+                <i class="bx bx-carousel icon"></i>
+                <span class="link-text nav-text">Catálogo</span>
+            </a>
+        </li>
+        <li class="nav-link">
+            <a href="{% url 'mostrar_carrito'%}">
+                <i class="bx bx-cart-alt icon"></i>
+                <span class="link-text nav-text">Carrito</span>
+            </a>
+        </li>
+        <li class="nav-link">
+            <a href="{% url 'historial_compras'%}">
+                <i class="bx bx-package icon"></i>
+                <span class="link-text nav-text">Historial</span>
+            </a>
+        </li>
+        {% if user.is_authenticated %}
+        <li class="nav-link">
+            <a href="{% url 'mostrar_administracion'%}">
+                <i class="bx bx-package icon"></i>
+                <span class="link-text nav-text">Admin</span>
+            </a>
+        </li>
+        {% endif %}
+        {% if user.is_authenticated == False %}
+        <li class="nav-link">
+            <a href="{% url 'mostrar_entrar'%}">
+                <i class="bx bx-user icon"></i>
+                <span class="link-text nav-text">Entrar</span>
+            </a>
+        </li>
+        <li class="nav-link">
+            <a href="{% url 'mostrar_registro'%}">
+                <i class="bx bx-user-plus icon"></i>
+                <span class="link-text nav-text">Registro</span>
+            </a>
+        </li>
+        {% endif %}
+        <li class="nav-link">
+            <a href="{% url 'mostrar_nosotros' %}">
+                <i class="bx bx-package icon"></i>
+                <span class="link-text nav-text">Nosotros</span>
+            </a>
+        </li>
+        {% if user.is_authenticated %}
+        <li class="nav-link">
+            <a href="{% url 'cerrar_sesion' %}">
+                <i class="bx bx-log-out icon"></i>
+                <span class="link-text nav-text">Salir</span>
+            </a>
+        </li>
+        {% endif %}
+
+    </ul>
+
+</nav>
+<script defer src="{% static '/js/theme.js'%}"></script>

@@ -1,0 +1,188 @@
+{% extends 'padre/base.html' %}
+{% load static %}
+{% load myfilters %}
+
+{% block titulo %}
+Carrito
+{% endblock titulo %}
+
+{% block css %}
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap');
+
+    body {
+        background-image: url(/static/img/fondo.jpg);
+        font-family: 'Open Sans', sans-serif;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    h2 {
+        text-align: center;
+        color: #edb00a;
+    }
+
+    #contenedor {
+        margin: 0;
+        padding: 0;
+        min-width: 100vw;
+        width: 100%;
+        height: 100%;
+        color: azure;
+    }
+
+    #tabla-contenedor {
+        width: 80%;
+        max-width: 800px;
+        background-color: rgba(4, 4, 50, 0.7);
+        padding: 20px;
+        border: 2px solid #bdbdbd;
+        border-radius: 10px;
+        color: #333;
+        margin: 0 auto 20px;
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        background-color: white
+    }
+
+    th,
+    td {
+        border: 1px solid #bdbdbd;
+        padding: 10px;
+        text-align: left;
+    }
+
+    td:nth-child(3) {
+        text-align: right;
+        font-weight: bold;
+    }
+
+    th {
+        background-color: #040432;
+        color: #fff;
+    }
+
+    .button {
+        display: inline-block;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: 600;
+        background-color: #edb00a;
+        border-radius: 10px;
+        padding: 10px;
+        margin: 5px;
+        color: #040432;
+        text-decoration: none;
+        text-align: center;
+        transition: background-color 0.3s ease;
+        border: 2px solid #040432;
+    }
+
+    .button:hover {
+        background-color: transparent;
+        border: 2px solid #bdbdbd;
+        color: #040432;
+    }
+
+    .button-container {
+        display: flex;
+        /* Activa el modo Flexbox */
+        justify-content: space-between;
+        /* Coloca los elementos al principio y al final del contenedor */
+        align-items: center;
+        /* Centra verticalmente los elementos si es necesario */
+    }
+
+    .button-container a.button,
+    .button-container button {
+        margin: 0;
+        /* Añade espacio entre los elementos si es necesario */
+    }
+</style>
+{% endblock css %}
+
+{% block contenido %}
+<div id="contenedor">
+    <h2>Pago</h2>
+    <div id="tabla-contenedor">
+
+        <table>
+            <thead>
+                <tr>
+                    <th scope="col">Modelo</th>
+                    <th scope="col">Marca</th>
+                    <th scope="col">Precio</th>
+                    <th scope="col">Cantidad</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% if request.session.carrito.items %}
+                {% for key, value in request.session.carrito.items %}
+                <tr>
+                    <td>{{ value.modelo }}</td>
+                    <td>{{ value.marca }}</td>
+                    <td>${{ value.precio }}</td>
+                    <td>{{ value.cantidad }}
+
+                    </td>
+                </tr>
+
+                {% endfor %}
+
+                <th scope="col">Total : ${{total}}</th>
+                <tr>
+
+
+                    <th scope="col">Medio de Pago:
+                        <select name="medio_pago" id="medio_pago">
+                            <option value="tarjeta">Tarjeta de crédito</option>
+                            <option value="efectivo">Tarjeta de débito</option>
+                        </select>
+                    </th>
+                    <th> <img src="{% static 'img/transbank.png' %}" alt="Descripción de la imagen"
+                            class="tu-clase-css"></th>
+                <tr>
+
+                    <th scope="col">Dirección de envío:</th>
+                    <td colspan="3">
+                        <label name="direccion_envio" id="direccion_envio" rows="4" cols="50"></label>
+                    </td>
+                </tr>
+                {% else %}
+                <tr>
+                    <td colspan="4">
+                        <div class="alert alert-danger text-center">Sin Productos</div>
+                    </td>
+                </tr>
+
+                {% endif %}
+                <tr>
+                    <th scope="row"></th>
+                    <td colspan="3"></td>
+                </tr>
+            </tbody>
+        </table>
+        <hr>
+
+        <div class="row text-center">
+            <div class="col-8">
+                <div class="button-container">
+                    <a href="{% url 'mostrar_carrito'%}" class="button">Editar Carrito</a>
+
+                    <form method="post" action="{% url 'confirmar_compra' %}">
+                        {% csrf_token %}
+                        </tr>
+                        <button type="submit" class="button">Comprar</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock contenido %}
+
+{% block footer %}
+{% endblock footer %}

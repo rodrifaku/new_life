@@ -1,0 +1,178 @@
+{% extends 'padre/base.html' %}
+{% load static %}
+
+{% block titulo %}
+Quienes Somos
+{% endblock titulo %}
+{% block css %}
+<style>
+    body {
+        background-image: url(/static/img/fondo.jpg);
+        font-family: 'Open Sans', sans-serif;
+    }
+
+    .container {
+        background-color: rgba(0, 0, 255, 0.2);
+        padding: 20px;
+        border: 1px solid white;
+        border-radius: 10px;
+        color: white;
+        text-align: justify;
+        max-width: 800px;
+        margin: 0 auto;
+    }
+
+    .logo {
+        text-align: center;
+        margin-bottom: 20px;
+        background-color: transparent;
+
+    }
+
+    .logo img {
+        width: 100px;
+        height: auto;
+        opacity: 0.8;
+    }
+
+    .modal {
+        display: none;
+        position: fixed;
+        z-index: 1;
+        padding-top: 100px;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+        overflow: auto;
+        background-color: rgba(0, 0, 255, 0.4);
+    }
+
+    .modal-content {
+        background-color: #edb00a;
+        margin: auto;
+        padding: 20px;
+        border-radius: 10px;
+        border: 2px solid blue;
+        width: 80%;
+        color: white;
+        text-align: center;
+        position: relative;
+    }
+
+    .close {
+        color: white;
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 28px;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: #ccc;
+        text-decoration: none;
+    }
+
+    .button-container {
+        display: flex;
+        justify-content: center;
+        margin-top: 2rem;
+    }
+
+    #myBtn {
+        display: block;
+        margin: 0 auto;
+        background-color: #edb00a;
+        color: black;
+        border-radius: 10px;
+        padding: 10px 20px;
+        border: none;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    #myBtn:hover {
+        background-color: #ffcf3d;
+    }
+
+    /* Estilos adicionales para texto centrado */
+    h2 {
+        color: #edb00a;
+        text-align: center;
+    }
+
+    .modal-content p {
+        text-align: center;
+        color: white;
+    }
+</style>
+{% endblock css%}
+{% block contenido %}
+<div class="container">
+    <div class="logo">
+        <img src="{% static 'img/newLife.png' %}" alt="Logo">
+    </div>
+    <h2>Quiénes Somos</h2>
+    <p>Somos una pasión convertida en propósito, una comunidad de amantes del medio ambiente y del arte en constante
+        evolución. Nuestra historia comienza con la creencia de que cada pequeño acto importa y puede marcar la
+        diferencia. Nos hemos embarcado en un viaje inspirador para preservar la belleza de nuestro planeta y, al mismo
+        tiempo, celebrar la creatividad humana.</p>
+
+    <p>En el corazón de nuestra misión se encuentra la sostenibilidad y la apreciación por la artesanía. Nos dedicamos a
+        la creación y promoción de productos hechos a mano y reciclados, fusionando la innovación y el respeto por la
+        naturaleza. Cada artículo que ofrecemos cuenta una historia única: una historia de materiales reutilizados, de
+        artesanos talentosos y de un compromiso inquebrantable con el medio ambiente.</p>
+
+    <p>Nuestra tienda es un tesoro de tesoros artesanales y reciclados. Desde coloridas obras de arte hechas de
+        materiales reciclados hasta piezas de decoración únicas que aportan un toque de originalidad a tu hogar,
+        nuestros productos son una expresión de la creatividad y la conciencia ambiental. Cada compra en nuestra tienda
+        es una inversión en la salud de nuestro planeta.</p>
+
+    <p>En un mundo donde la sostenibilidad es más importante que nunca, nos enorgullece contribuir a la causa. Al elegir
+        nuestros productos, estás optando por reducir la demanda de nuevos recursos y minimizar el impacto negativo en
+        la Tierra. Además, destinamos una parte de nuestras ganancias a proyectos medioambientales y organizaciones
+        benéficas que comparten nuestra visión de un mundo más limpio y saludable.</p>
+
+    <p>Únete a nosotros en este viaje hacia un futuro más sostenible y consciente. Juntos, podemos hacer la diferencia,
+        un producto artesanal a la vez.</p>
+
+</div>
+
+<div class="button-container">
+    <button id="myBtn">Nosotros</button>
+</div>
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <p>Rodrigo Faúndez</p>
+        <p>Yaritza Toro</p>
+        <p>Jaime Araneda</p>
+        <p>Tatiana Real</p>
+        <p>Daniel</p>
+    </div>
+</div>
+
+{% endblock contenido %}
+{% block footer %}
+{% endblock footer %}
+{% block js %}
+<script>
+    var modal = document.getElementById("myModal");
+    var btn = document.getElementById("myBtn");
+    var span = document.getElementsByClassName("close")[0];
+    btn.onclick = function () {
+        modal.style.display = "block";
+    }
+    span.onclick = function () {
+        modal.style.display = "none";
+    }
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+</script>
+{% endblock js %}

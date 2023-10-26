@@ -1,0 +1,165 @@
+{% extends 'padre/base.html' %}
+{% load static %}
+{% block titulo %}
+Registro
+{% endblock titulo %}
+
+{% block css %}
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap');
+
+  body {
+    background-image: url(/static/img/fondo.jpg);
+    font-family: 'Open Sans', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    color: white;
+  }
+
+  h1 {
+    text-align: center;
+    color: #edb00a;
+  }
+
+  #contenedor {
+    width: 100%;
+    height: 100%;
+  }
+
+  .form-register {
+    max-width: 800px;
+    background-color: rgba(4, 4, 50, 0.7);
+    padding: 20px;
+    border: 2px solid #bdbdbd;
+    border-radius: 10px;
+    color: #333;
+    margin: 0 auto 20px;
+  }
+
+  .form-register label {
+    color: #fff;
+  }
+
+  .form-register button[type="submit"] {
+    display: inline-block;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: 600;
+    background-color: #edb00a;
+    border-radius: 10px;
+    padding: 15px 30px;
+    margin: 5px auto;
+    color: #040432;
+    text-decoration: none;
+    text-align: center;
+    transition: background-color 0.3s ease;
+    border: 2px solid #040432;
+    font-size: 20px;
+  }
+
+  .form-register button[type="submit"]:hover {
+    background-color: transparent;
+    border: 2px solid #bdbdbd;
+    color: #040432;
+  }
+
+  span {
+    color: #b1b1b1;
+  }
+
+  label {
+    padding-top: 30px;
+  }
+</style>
+{% endblock css %}
+
+{% block contenido %}
+<div id="contenedor">
+  <form method="POST">
+    {% csrf_token %}
+    <section class="form-register justify-content-between  w-50 ">
+      <h1 class="text-center">Nueva cuenta</h1>
+      <section class="row controls">
+        <fieldset class="col-12">
+          <label for="{{ formulario.username.id_for_label }}">
+            {{ formulario.username.label }}
+          </label>
+          {{ formulario.username }}
+          <span>{{ formulario.username.help_text }}</span>
+          <ul class="invalid-feedback">
+            {{ formulario.username.errors }}
+          </ul>
+        </fieldset>
+      </section>
+      <section class="row controls">
+        <fieldset class="col-6">
+          <label for="{{ formulario.first_name.id_for_label }}">
+            {{ formulario.first_name.label }}
+          </label>
+          {{ formulario.first_name }}
+          <span>{{ formulario.first_name.help_text }}</span>
+          <ul class="invalid-feedback">
+            {{ formulario.first_name.errors }}
+          </ul>
+        </fieldset>
+        <fieldset class="col-6">
+          <label for="{{ formulario.last_name.id_for_label }}">
+            {{ formulario.last_name.label }}
+          </label>
+          {{ formulario.last_name }}
+          <span>{{ formulario.last_name.help_text }}</span>
+          <ul class="invalid-feedback">
+            {{ formulario.last_name.errors }}
+          </ul>
+        </fieldset>
+      </section>
+      <section class="row controls">
+        <fieldset class="col-12">
+          <label for="{{ formulario.email.id_for_label }}">
+            {{ formulario.email.label }}
+          </label>
+          {{ formulario.email }}
+          <span>{{ formulario.email.help_text }}</span>
+          <ul class="invalid-feedback">
+            {{ formulario.email.errors }}
+          </ul>
+        </fieldset>
+      </section>
+      <section class="row controls">
+        <fieldset class="col-6">
+          <label for="{{ formulario.password1.id_for_label }}">
+            {{ formulario.password1.label }}
+          </label>
+          {{ formulario.password1 }}
+          <span>{{ formulario.password1.help_text }}</span>
+          <ul class="invalid-feedback">
+            {{ formulario.password1.errors }}
+          </ul>
+        </fieldset>
+        <fieldset class="col-6">
+          <label for="{{ formulario.password2.id_for_label }}">
+            {{ formulario.password2.label }}
+          </label>
+          {{ formulario.password2 }}
+          <span>{{ formulario.password2.help_text }}</span>
+          <ul class="invalid-feedback">
+            {{ formulario.password2.errors }}
+          </ul>
+        </fieldset>
+      </section>
+      <section class="row controls">
+        <fieldset class="col-8 offset-2">
+          <div class="d-grid">
+            <button type="submit" role="submit" class="btn btn-success">
+              Registrar
+            </button>
+          </div>
+        </fieldset>
+      </section>
+    </section>
+  </form>
+</div>
+{% endblock contenido %}
+
+{% block footer %}
+{% endblock footer %}

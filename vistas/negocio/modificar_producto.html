@@ -1,0 +1,131 @@
+{% extends 'padre/base.html' %}
+{% load static %}
+
+{% block titulo %}
+Modificar Producto
+{% endblock titulo %}
+
+{% block css %}
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap');
+
+    body {
+        background-image: url(/static/img/fondo.jpg);
+        font-family: 'Open Sans', sans-serif;
+    }
+
+    .container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        color: #edb00a;
+        padding: 10px;
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    form {
+        width: 80%;
+        max-width: 500px;
+        background-color: rgba(4, 4, 50, 0.7);
+        padding: 50px;
+        border: 2px solid #edb00a;
+        border-radius: 10px;
+        color: #edb00a;
+    }
+
+    form h1 {
+        font-size: 2rem;
+        margin-bottom: 2rem;
+        margin-top: 0;
+        line-height: 1.2;
+        color: #edb00a;
+        text-transform: uppercase;
+    }
+
+    form table {
+        width: 100%;
+    }
+
+    form table td {
+        padding-right: 20px;
+    }
+
+    form textarea {
+        display: flex;
+        max-width: 90%;
+        padding: 10px;
+        box-sizing: border-box;
+    }
+
+    .btn.btn-primary {
+        display: block;
+        width: 200px;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: 600;
+        background-color: #edb00a;
+        border-radius: 10px;
+        padding: 10px;
+        margin: 16px auto;
+        color: #040432;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+        border: 2px solid #190053;
+    }
+
+    .btn.btn-primary:hover {
+        background-color: white;
+        border: 2px solid #bdbdbd;
+        color: #333;
+    }
+
+    /* Media queries for smaller screens */
+    @media screen and (max-width: 830px) {
+        form textarea {
+            max-width: 80%;
+        }
+    }
+
+    @media screen and (max-width: 601px) {
+        form textarea {
+            max-width: 100%;
+        }
+
+        form {
+            width: 100%;
+            padding: 20px;
+        }
+
+        .btn.btn-primary {
+            width: 100%;
+        }
+    }
+</style>
+{% endblock css%}
+
+{% block contenido %}
+<div class="container">
+    <form method="post" enctype="multipart/form-data">
+        <h1>Modificar Producto</h1>
+        {% csrf_token %}
+        <table>
+            {% for field in form %}
+            <tr>
+                <td>{{ field.label_tag }}</td>
+                <td>{{ field }}</td>
+            </tr>
+            {% endfor %}
+        </table>
+        <button type="submit" role='submit' class="btn btn-primary">Guardar</button>
+        <a href="{% url 'mostrar_administracion' %}" class="btn btn-primary">Volver</a>
+
+    </form>
+</div>
+
+<hr class="featurette-divider">
+
+{% endblock contenido %}
+{% block footer %}
+{% endblock footer %}

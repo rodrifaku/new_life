@@ -1,0 +1,56 @@
+{% extends 'padre/base.html' %}
+{% load static %}
+{% load myfilters %}
+
+{% block titulo %}
+Productos
+{% endblock titulo %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static '/css/estilos.css'%}">
+{% endblock css %}
+
+{% block contenido %}
+<main>
+    <section>
+        <form method="GET" action="{% url 'filtro_por_categoria' %}">
+            <label for="categoria">Selecciona una categoría:</label>
+            <select name="categoria" id="categoria">
+                <option value="">Todas</option>
+                {% for categoria in categorias %}
+                <option value="{{ categoria.id }}">{{ categoria.nombre }}</option>
+                {% endfor %}
+            </select>
+            <button type="submit">Filtrar</button>
+        </form>
+        <div class="product-grid" role="list">
+            {% for producto in productos %}
+            <article role="listitem">
+                <div class="card">
+                    <div class="image-container">
+                        <img src="{% static producto.foto %}" class="card-img-top img-fluid"
+                            alt="{{producto.modelo}}" />
+                    </div>
+                    <div class="card-body">
+                        <h5 class="card-title">{{producto.modelo}}</h5>
+                        <p class="card-text">{{producto.marca}}</p>
+                        <p class="card-text price">$ {{producto.precio|intcomma}}</p>
+                        <details>
+                            <summary>
+                                Descripción
+                            </summary>
+                            <p class="card-description">{{producto.descripcion}}</p>
+                        </details>
+                        {% csrf_token %}
+                        <a href="{% url 'agregar_carrito' producto.id %}" class="btn btn-primary"
+                            aria-label="Comprar {{producto.modelo}}">Comprar</a>
+                    </div>
+                </div>
+            </article>
+            {% empty %}
+            <p>No hay productos disponibles.</p>
+            {% endfor %}
+        </div>
+    </section>
+</main>
+{% endblock contenido %}

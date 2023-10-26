@@ -1,0 +1,88 @@
+{% extends 'padre/base.html' %}
+{% load static %}
+
+{% block titulo %}
+Inicio
+{% endblock titulo %}
+{% block css %}
+<link rel="stylesheet" href="{% static '/css/estilos.css'%}">
+{% endblock css %}
+{% block contenido %}
+
+
+
+
+<main>
+    <div class="container">
+        <h2 class="welcome-text">¡Bienvenido a nuestra página de inicio!</h2>
+        <p class="welcome-text content-text">En esta página, te presentamos una selección de imágenes increíbles que
+            representan nuestra empresa. Explora nuestro sitio y descubre más sobre nuestros productos.</p>
+
+    </div>
+
+
+
+    <div id="carouselExampleInterval" class="carousel slide" data-bs-ride="carousel">
+        <div class="carousel-inner ">
+
+            <div class="carousel-item active text-center" data-bs-interval="5000">
+                <br>
+                <img src="{% static '/img/inicio1.jpg'%}" class="d-block w-100" alt="...">
+
+            </div>
+            <div class="carousel-item active text-center" data-bs-interval="5000">
+                <br>
+                <img src="{% static '/img/inicio3.jpg'%}" class="d-block w-100" alt="...">
+
+            </div>
+            <div class="carousel-item active text-center" data-bs-interval="5000">
+                <br>
+                <img src="{% static '/img/inicio4.jpg'%}" class="d-block w-100" alt="...">
+            </div>
+
+            <div class="carousel-item active text-center" data-bs-interval="5000">
+                <br>
+                <img src="{% static '/img/inicio5.jpg'%}" class="d-block w-100" alt="...">
+            </div>
+
+            <div class="carousel-item active text-center" data-bs-interval="5000">
+                <br>
+                <img src="{% static '/img/inicio6.jpg'%}" class="d-block w-100" alt="...">
+            </div>
+
+            <div class="carousel-item active text-center" data-bs-interval="5000">
+                <br>
+                <img src="{% static '/img/inicio7.jpg'%}" class="d-block w-100" alt="...">
+            </div>
+            <div class="carousel-item active text-center" data-bs-interval="5000">
+                <br>
+                <img src="{% static '/img/inicio8.jpg'%}" class="d-block w-100" alt="...">
+            </div>
+        </div>
+        <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleInterval"
+            data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+        </button>
+        <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleInterval"
+            data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+        </button>
+    </div>
+
+
+
+</main>
+<hr class="featurette-divider">
+
+<div class="container">
+    <h2 class="services-text">Nuestros Servicios</h2>
+    <p class="services-text content-text">Aquí puedes encontrar articulos que ofrecemos, estamos listos para ayudarte a
+        alcanzar tus objetivos.</p>
+
+</div>
+
+
+
+{% endblock contenido %}

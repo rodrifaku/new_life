@@ -1,0 +1,66 @@
+{% extends 'padre/base.html' %}
+{% load static %}
+
+{% block titulo %}
+Administracion
+{% endblock titulo %}
+{% block css %}
+<style>
+    body {
+        background-image: url(/static/img/fondo.jpg);
+    }
+
+    .container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+
+    .admin-panel {
+        padding: 50px;
+        max-width: 80%;
+        background-color: rgba(4, 4, 50, 0.7);
+        /* color semi-transparente */
+        border: 2px solid #edb00a;
+        border-radius: 10px;
+        color: #edb00a;
+        text-align: center;
+    }
+
+    .button {
+        display: block;
+        width: 200px;
+        font-family: Arial, Helvetica, sans-serif;
+        font-weight: 600;
+        background-color: #edb00a;
+        border-radius: 10px;
+        padding: 10px;
+        margin: 10px auto;
+        color: #040432;
+        text-decoration: none;
+        transition: background-color 0.3s ease;
+        border: 2px solid #190053;
+    }
+
+    .button:hover {
+        background-color: white;
+        border: 2px solid #bdbdbd;
+        color: #333;
+    }
+</style>
+{% endblock css %}
+
+{% block contenido %}
+<div class="container">
+    <div class="admin-panel">
+        <h2>Panel de Administración</h2>
+        <a class="button" href="{% url 'crear_producto'%}">Crear</a>
+        <a class="button" href="{% url 'listar_productos'%}">Listar/Modificar/Eliminar</a>
+        <a class="button" href="{% url 'inventario'%}">Inventario</a>
+        <a class="button" href="{% url 'historial_ventas'%}">Ventas</a>
+    </div>
+</div>
+{% endblock contenido %}
+{% block footer %}
+{% endblock footer %}
