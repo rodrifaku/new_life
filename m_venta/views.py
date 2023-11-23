@@ -503,7 +503,7 @@ send_mail(
 
     'correo de prueba',
     'contenido.',
-    config('USER_MAIL'),
+    ('USER_MAIL'),
     ['rfaundez.rodrigo@gmail.com'],
     fail_silently=False,
 )
