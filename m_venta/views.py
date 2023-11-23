@@ -90,7 +90,8 @@ def agregar_al_carrito(request, producto_id):
         item_carrito.cantidad += 1
         item_carrito.save()
 
-    messages.success(request, f'Se ha agregado "{
+    success(
+        request, f'Se ha agregado "{
                      producto.modelo}" al carrito.')
 
     # Redirigir a la página de productos o donde sea necesario
