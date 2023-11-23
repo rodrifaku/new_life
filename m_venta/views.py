@@ -6,7 +6,7 @@ from m_venta.carrito import Carrito
 from django.views import View
 from io import BytesIO
 from django.shortcuts import render, redirect, get_object_or_404
-from .forms import ProductoForm, CategoriaForm, DireccionDespachoForm,ProveedorForm
+from .forms import ProductoForm, CategoriaForm, DireccionDespachoForm, ProveedorForm
 from sweetify import success, warning
 from .models import ItemCarrito, Venta, DetalleVenta, Producto, DireccionDespacho, Proveedor
 from django.contrib.auth.decorators import user_passes_test, login_required
@@ -91,8 +91,7 @@ def agregar_al_carrito(request, producto_id):
         item_carrito.save()
 
     success(
-        request, f'Se ha agregado "{
-                     producto.modelo}" al carrito.')
+        request, f'Se ha agregado "{producto.modelo}" al carrito.')
 
     # Redirigir a la página de productos o donde sea necesario
     return redirect('negocio/productos_carrito.html')
@@ -467,30 +466,23 @@ def agregar_categoria(request):
     return render(request, 'agregar_categoria.html', {'formulario_categoria': formulario_categoria})
 
 
-
 @user_passes_test(es_administrador)
 def crear_proveedor(request):
     if request.method == 'POST':
         form = ProveedorForm(request.POST)
         if form.is_valid():
             form.save()
-            return redirect('lista_proveedores')  # Cambia 'lista_proveedores' al nombre de la vista de tu lista de proveedores
+            # Cambia 'lista_proveedores' al nombre de la vista de tu lista de proveedores
+            return redirect('lista_proveedores')
     else:
         form = ProveedorForm()
 
     return render(request, 'crear_proveedor.html', {'form': form})
 
 
-
 def lista_proveedores(request):
     proveedores = Proveedor.objects.all()
     return render(request, 'lista_proveedores.html', {'proveedores': proveedores})
-
-
-
-
-
-
 
 
 message = Mail(from_email='USER_MAIL',
