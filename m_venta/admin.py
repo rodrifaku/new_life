@@ -1,6 +1,7 @@
 from django.contrib import admin
 
-from .models import Producto,Categoria
+from .models import Producto,Categoria, DireccionDespacho
+from .forms import DireccionDespachoForm
 
 
 # Register your models here.
@@ -21,3 +22,14 @@ productos_sitio = CategoriaAdminArea(name='CategoriaAdminArea')
 
 admin.site.register(Categoria)
 productos_sitio.register(Categoria)
+
+class DireccionDespachoAdmin(admin.ModelAdmin):
+    form = DireccionDespachoForm
+
+    list_display = ('usuario','direccion', 'comuna', 'ciudad')
+    def usuario(self, obj):
+        return obj.user.username
+    usuario.short_description = 'Usuario'
+
+# Registra el modelo y el formulario en el administrador
+admin.site.register(DireccionDespacho, DireccionDespachoAdmin)

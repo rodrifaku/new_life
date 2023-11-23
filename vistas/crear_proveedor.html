@@ -1,0 +1,95 @@
+{% extends 'padre/base.html' %}
+{% load static %}
+
+{% block titulo %}
+Crear Proveedor
+{% endblock titulo %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static '/css/estilos.css' %}">
+<style>
+    /* Agrega estilos al contenedor principal para centrar el contenido */
+    .text-center {
+        text-align: center;
+        margin-top: 50px;
+        /* Ajusta según sea necesario */
+    }
+
+    /* Estilos para el formulario */
+    .form {
+        max-width: 300px;
+        /* Reducido el ancho del formulario */
+        margin: 0 auto;
+        /* Centra el formulario dentro del contenedor */
+        text-align: left;
+        /* Alinea el texto a la izquierda dentro del formulario */
+        border: 1px solid #001f3f;
+        /* Borde azul casi negro */
+        padding: 10px;
+        /* Reducido el espacio interior */
+        border-radius: 8px;
+        /* Bordes redondeados */
+        background-color: #001f3f;
+        /* Fondo azul casi negro */
+        color: #fff;
+        /* Texto blanco */
+        line-height: 1.2;
+        /* Ajuste de interlineado */
+    }
+
+    /* Estilos para los elementos del formulario */
+    .form label {
+        display: block;
+        margin-bottom: 2px;
+        /* Reducido el margen inferior */
+    }
+
+    .form input,
+    .form select,
+    .form textarea {
+        width: calc(100% - 16px);
+        /* Ajusta el ancho de los campos de entrada */
+        padding: 6px;
+        margin-bottom: 6px;
+        /* Reducido el margen inferior */
+        box-sizing: border-box;
+    }
+
+    /* Estilos para el botón */
+    .btn-primary {
+        background-color: #fff;
+        /* Fondo blanco para el botón */
+        color: #001f3f;
+        /* Texto azul casi negro para el botón */
+        padding: 8px 16px;
+        /* Reducido el tamaño del botón */
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+
+    .btn-primary:hover {
+        background-color: #000;
+        /* Color más oscuro al pasar el mouse */
+    }
+</style>
+{% endblock css %}
+
+{% block contenido %}
+<div class="text-center">
+    <h2>Crear Proveedor</h2>
+    <form method="post" enctype="multipart/form-data" class="form">
+        {% csrf_token %}
+
+        {{ form.as_p }}
+
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        <a href="{% url 'mostrar_administracion' %}" class="btn btn-primary" aria-label="Comprar ">Volver</a>
+    </form>
+</div>
+
+{% endblock contenido %}
+
+{% block footer %}
+{# Puedes agregar contenido al pie de página si es necesario #}
+{% endblock footer %}

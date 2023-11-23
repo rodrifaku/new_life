@@ -1,0 +1,99 @@
+{% extends 'padre/base.html' %}
+{% load static %}
+{% load myfilters %}
+
+{% block titulo %}
+Boleta
+{% endblock titulo %}
+{% block css %}
+<style>
+    body {
+        background-image: url(/static/img/fondo.jpg);
+    }
+
+    h2 {
+        color: #313131;
+        font-size: 24px;
+        text-align: center;
+    }
+
+    .receipt-container {
+        background-color: #ffffff;
+        width: 80%;
+        margin: auto;
+        padding: 20px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    th,
+    td {
+        padding: 10px;
+        border: 1px solid #040432;
+    }
+
+    th {
+        background-color: #040432;
+        color: #e5edf1;
+    }
+
+    td {
+        color: #040432;
+    }
+
+    .total-row {
+        font-weight: bold;
+        color: #ffffff;
+    }
+</style>
+{% endblock css %}
+
+{% block contenido %}
+<div class="receipt-container">
+    <h2>Orden de despacho Nº {{ venta.ordendespacho.numero_orden }}</h2>
+    <table>
+        <tr>
+            <td colspan="2">Compra realizada por: {{venta.usuario.first_name}} {{venta.usuario.last_name}}</td>
+            <td colspan="2">Fecha: {{ venta.fecha_venta }}</td>
+        </tr>
+        <tr>
+            <th>Producto</th>
+            <th>Cantidad</th>
+            <th>Precio unitario</th>
+            <th>Subtotal</th>
+        </tr>
+        {% for detalle in detalles_venta %}
+        <tr>
+            <td>{{ detalle.producto.modelo }}</td>
+            <td>{{ detalle.cantidad|intcomma }}</td>
+            <td>$ {{ detalle.precio_unitario|intcomma }}</td>
+            <td>$ {{ detalle.subtotal|intcomma }}</td>
+        </tr>
+        {% endfor %}
+        <tr class="total-row">
+            <td colspan="3">Total:</td>
+            <td>$ {{ total|intcomma }}</td>
+        </tr>
+        <tr>
+            <th scope="col">Dirección de envío:</th>
+            <td colspan="3">
+                {% if direccion_despacho %}
+                {{ direccion_despacho.direccion }} {{ direccion_despacho.comuna }} {{ direccion_despacho.ciudad }}
+
+                {% else %}
+                <p>No se ha proporcionado una dirección de envío.</p>
+                {% endif %}
+        <tr>
+    </table>
+    <form method="post" action="{% url 'descontar_inventario' id_venta=venta.id %}">
+        {% csrf_token %}
+        <button type="submit" class="btn-descontar">Descontar Inventario</button>
+    </form>
+</div>
+{% endblock contenido %}
+{% block footer %}
+{% endblock footer %}

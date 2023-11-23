@@ -1,0 +1,27 @@
+{% extends 'padre/base.html' %}
+{% load static %}
+
+{% block titulo %}
+Password
+{% endblock titulo %}
+{% block css %}
+<link rel="stylesheet" href="{% static '/css/estilos.css'%}">
+{% endblock css %}
+
+{% block contenido %}
+
+<h2>Lista de Proveedores</h2>
+<ul>
+    {% for proveedor in proveedores %}
+    <li>Razon Social: {{ proveedor.razon_social }} - Giro: {{proveedor.giro}}- Rut: {{ proveedor.rut }} -
+        Teléfono :{{proveedor.telefono_contacto }} -
+        Contacto :{{proveedor.persona_contacto}}
+    </li>
+    {% endfor %}
+</ul>
+<a href="{% url 'crear_proveedor' %}" class="btn btn-primary" aria-label="Comprar ">Crear Proveedor</a>
+<a href="{% url 'mostrar_administracion' %}" class="btn btn-primary" aria-label="Comprar ">Volver</a>
+{% endblock contenido %}
+
+{% block footer %}
+{% endblock footer %}

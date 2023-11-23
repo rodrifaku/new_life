@@ -6,7 +6,6 @@
 Historial de Compras
 {% endblock titulo %}
 {% block css %}
-
 <style>
     @import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@400;600&display=swap');
 
@@ -84,30 +83,27 @@ Historial de Compras
     }
 </style>
 {% endblock css %}
-
 {% block contenido %}
 
 <div>
     <h1>Historial de Ventas</h1>
-
     {% if compras %}
-
-
-
-
+    <p>Filtrando por la fecha: </p>
+    <form method="get" action="{% url 'historial_ventas' %}">
+        <label for="fecha">Fecha:</label>
+        <input type="date" name="fecha" id="fecha">
+        <button type="submit">Filtrar</button>
+    </form><br>
     <table>
         <tr>
             <th>Boleta de venta Nº</th>
-            <th>Usuario</th>
             <th>Fecha</th>
             <th>Total</th>
-
         </tr>
         {% for compra in compras %}
         <tr>
-            <td><a href="{% url 'mostrar_boleta' compra.id %}">{{ compra.id}}</a></td>
-            <td>{{compra.user}}</td>
-            <td>{{ compra.fecha_venta }}</td>
+            <td><a href="{% url 'mostrar_boleta_admin' compra.id %}">{{ compra.id}}</a></td>
+            <td>{{ compra.fecha_venta|date:" j  F Y, g:i a" }}</td>
             <td>$ {{ compra.total|intcomma}}</td>
         </tr>
         {% endfor %}
@@ -118,8 +114,6 @@ Historial de Compras
     {% endif %}
     <button type="button" onclick="window.history.back();" class="button">Volver</button>
 </div>
-
-
 
 {% endblock contenido %}
 {% block footer %}

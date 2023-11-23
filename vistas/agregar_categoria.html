@@ -1,0 +1,23 @@
+{% extends 'padre/base.html' %}
+{% load static %}
+
+{% block titulo %}
+Password
+{% endblock titulo %}
+{% block css %}
+<link rel="stylesheet" href="{% static '/css/estilos.css'%}">
+{% endblock css %}
+
+{% block contenido %}
+<h2>Agregar Nueva Categoría</h2>
+<a href="{% url 'mostrar_administracion' %}" class="btn btn-primary" aria-label="Comprar ">Volver</a>
+<form method="post">
+    {% csrf_token %}
+    {{ formulario_categoria.as_p }}
+    <button type="submit">Guardar</button>
+    
+</form>
+{% endblock contenido %}
+
+{% block footer %}
+{% endblock footer %}

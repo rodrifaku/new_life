@@ -5,12 +5,15 @@ from django.conf.urls.static import static
 from m_usuario.urls import urlpatterns as urlUsuario
 from m_venta.urls import urlpatterns as urlVenta
 from m_venta.admin import productos_sitio
+from m_bodega.urls import urlpatterns as urlBodega
+from m_venta.views import mostrar_administracion
+
 
 from .views import (
     mostrar_principal,
     mostrar_productos,
     mostrar_nosotros,
-    filtro_por_categoria,
+    filtro_por_categoria
 
 )
 
@@ -21,9 +24,12 @@ urlpatterns = [
          name='mostrar_nosotros'),
     path('', include('m_usuario.urls')),  # 1 opción
     path('', include('m_venta.urls')),
+    path('', include('m_pago.urls')),
+    path('', include('m_bodega.urls')),
     path('admin/', admin.site.urls),
     path('productosadmin/', productos_sitio.urls),
-    path('filtrar-por-categoria/', filtro_por_categoria, name='filtro_por_categoria'),
+    path('filtrar-por-categoria/', filtro_por_categoria,
+         name='filtro_por_categoria'),
 
 ]
 

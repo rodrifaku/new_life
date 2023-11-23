@@ -1,0 +1,90 @@
+{% extends 'padre/base.html' %}
+{% load static %}
+
+{% block titulo %}
+Inicio
+{% endblock titulo %}
+{% block css %}
+<link rel="stylesheet" href="{% static '/css/estilos.css'%}">
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 20px;
+    }
+
+    h1 {
+        color: #ffffff;
+
+    }
+
+    .campo-formulario {
+        margin-bottom: 15px;
+    }
+
+    label {
+        display: inline-block;
+        width: 150px;
+        font-weight: bold;
+    }
+
+    input,
+    select {
+        width: 300px;
+        padding: 5px;
+        box-sizing: border-box;
+    }
+</style>
+{% endblock css %}
+{% block contenido %}
+
+<body>
+    <h1>Perfil de {{ user.first_name }}</h1>
+    <form method="post">
+        {% csrf_token %}
+
+        <div class="campo-formulario">
+            <label for="id_password">Contraseña:</label>
+            <!-- Aquí puedes poner el enlace para cambiar la contraseña -->
+            <a href="{% url 'change_password' %}">Cambiar Contraseña</a>
+        </div>
+
+        <div class="campo-formulario">
+            <label for="id_last_login">Último inicio de sesión:</label>
+            {{ user.last_login }}
+        </div>
+
+        <div class="campo-formulario">
+            <label for="id_username">Nombre de usuario:</label>
+            {{ user }}
+        </div>
+
+        <div class="campo-formulario">
+            <label for="id_first_name">Nombre:</label>
+            {{ form.first_name }}
+        </div>
+
+        <div class="campo-formulario">
+            <label for="id_last_name">Apellidos:</label>
+            {{ form.last_name }}
+        </div>
+
+        <div class="campo-formulario">
+            <label for="id_email">Correo electrónico:</label>
+            {{ form.email }}
+        </div>
+
+        <div class="campo-formulario">
+            <label for="id_direccion">Dirección de envío:</label>
+            {{ form.direccion }}<br>
+            <label for="id_direccion">Comuna:</label>
+            {{ form.comuna}}<br>
+            <label for="id_direccion">Ciudad:</label>
+            {{ form.ciudad}}
+        </div>
+
+        <button type="submit" class="boton-actualizar">Actualizar perfil</button>
+    </form>
+</body>
+{% endblock contenido %}
+{% block footer %}
+{% endblock footer %}

@@ -129,15 +129,16 @@ Carrito
                 </tr>
             </tbody>
         </table>
-        <hr>
-        <div class="row text-center">
-            <div class="col-4"><a href="{% url 'limpiar_carrito' %}" class="button">Limpiar</a></div>
-            <div class="col-4"><a href="{% url 'mostrar_productos'%}" class="button">Seguir comprando</a></div>
-            <div class="col-4">
-                <form method="post" action="{% url 'pago' %}">
-                    {% csrf_token %}
-                    <button type="submit" class="button">Pagar</button>
-                </form>
+        <div class="container m-4 m-auto">
+            <div class="row text-center">
+                <div class="col-4"><a href="{% url 'limpiar_carrito' %}" class="button">Limpiar</a></div>
+                <div class="col-4"><a href="{% url 'mostrar_productos'%}" class="button">Seguir comprando</a></div>
+                <div class="col-4">
+                    <form method="post" action="{% url 'direccion_despacho'%}">
+                        {% csrf_token %}
+                        <button type="submit" class="button">Comprar</button>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

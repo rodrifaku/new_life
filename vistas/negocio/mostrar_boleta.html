@@ -55,6 +55,7 @@ Boleta
 {% block contenido %}
 <div class="receipt-container">
     <h2>Boleta de venta Nº{{venta.id}}</h2>
+    <h2>Orden de despacho Nº {{ venta.ordendespacho.numero_orden }}</h2>
     <table>
         <tr>
             <td colspan="2">Compra realizada por: {{venta.usuario.first_name}} {{venta.usuario.last_name}}</td>
@@ -79,6 +80,8 @@ Boleta
             <td>$ {{ total|intcomma }}</td>
         </tr>
     </table>
+    <a href="{% url 'boleta_pdf' id_venta=venta.id %}" target="_blank">Descargar Boleta en PDF</a>
+
 </div>
 {% endblock contenido %}
 {% block footer %}

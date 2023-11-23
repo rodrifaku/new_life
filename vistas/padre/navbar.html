@@ -229,7 +229,7 @@
         {% if user.is_authenticated %}
         <li class="logo">
 
-            <a href="#" class="nav-link">
+            <a href="{% url 'profile'%}" class="nav-link">
                 <span class="link-text logo-text text-center">Hola {{ user.first_name }}</span>
             </a>
         </li>
@@ -304,6 +304,7 @@
             </a>
         </li>
         {% endif %}
+        
 
     </ul>
 

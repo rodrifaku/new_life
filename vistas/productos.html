@@ -3,11 +3,30 @@
 {% load myfilters %}
 
 {% block titulo %}
-Productos
+<h1 class="destacado">Productos</h1>
 {% endblock titulo %}
 
 {% block css %}
 <link rel="stylesheet" href="{% static '/css/estilos.css'%}">
+<style>
+    .destacado {
+        color: #007bff;
+        font-size: 24px;
+    }
+
+    form {
+        margin-bottom: 20px;
+    }
+
+    .mensaje-no-productos {
+        font-size: 28px;
+        background-color: #ffc107;
+        padding: 10px;
+        border-radius: 8px;
+        border: 2px solid #040432;
+        color: black
+    }
+</style>
 {% endblock css %}
 
 {% block contenido %}
@@ -18,13 +37,18 @@ Productos
             <select name="categoria" id="categoria">
                 <option value="">Todas</option>
                 {% for categoria in categorias %}
+
                 <option value="{{ categoria.id }}">{{ categoria.nombre }}</option>
+
                 {% endfor %}
+
             </select>
             <button type="submit">Filtrar</button>
         </form>
+
         <div class="product-grid" role="list">
             {% for producto in productos %}
+            {% if producto.cantidad_web > 0 %}
             <article role="listitem">
                 <div class="card">
                     <div class="image-container">
@@ -43,12 +67,16 @@ Productos
                         </details>
                         {% csrf_token %}
                         <a href="{% url 'agregar_carrito' producto.id %}" class="btn btn-primary"
-                            aria-label="Comprar {{producto.modelo}}">Comprar</a>
+                            aria-label="Comprar {{producto.modelo}}">Agregar</a>
                     </div>
                 </div>
             </article>
+            {% endif %}
             {% empty %}
-            <p>No hay productos disponibles.</p>
+
+            <p class="mensaje-no-productos">No hay productos en categoría seleccionada</p>
+
+
             {% endfor %}
         </div>
     </section>

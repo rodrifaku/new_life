@@ -68,4 +68,10 @@ celerybeat-schedule.*
 celerybeat.pid
 
 # Sphinx documentation
-docs/_build/
+docs/_build/sendgrid.env
+sendgrid.env
+sendgrid.env
+sendgrid.env
+sendgrid.env
+sendgrid.env
+sendgrid.env

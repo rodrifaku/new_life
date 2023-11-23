@@ -1,10 +1,20 @@
+import os
 from pathlib import Path
 from os.path import join
+from decouple import config
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+EMAIL_FILE_PATH = "/tmp/app-messages"
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
+EMAIL_HOST = ('USER_MAIL_HOST')
+EMAIL_HOST_USER = 'apikey'
+EMAIL_HOST_PASSWORD = config('USER_MAIL_PASSWORD')
+EMAIL_PORT = 465
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
@@ -28,7 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'm_usuario',
     'sweetify',
-    'm_venta'
+    'm_venta',
+    'm_pago',
+    'm_bodega'
 ]
 
 MIDDLEWARE = [
@@ -47,7 +59,7 @@ TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
         'DIRS': [
-            join(BASE_DIR, 'vistas')
+            os.path.join(BASE_DIR, 'vistas')
         ],
         'APP_DIRS': True,
         'OPTIONS': {
@@ -70,10 +82,10 @@ WSGI_APPLICATION = 'Rodrigo_Faundez.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'NAME': join(BASE_DIR / 'db.sqlite3'),
     }
 }
-#DATABASES = {
+# DATABASES = {
 #    'default': {
 #        'ENGINE': 'django.db.backends.mysql',
 #        'NAME': 'rodfaundez',
@@ -81,8 +93,8 @@ DATABASES = {
 #      'PASSWORD': 'Rod.faundez_2023',
 #    'PORT': 3306
 #     'HOST': '164.152.54.1',
-#}
-#}
+# }
+# }
 
 
 # Password validation
@@ -133,3 +145,21 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 SWEETIFY_SWEETALERT_LIBRARY = 'sweetalert2'
 # Configuración para login_required,
 LOGIN_URL = '/entrar/'
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'mail_admins': {
+            'level': 'ERROR',
+            'class': 'django.utils.log.AdminEmailHandler',
+        },
+    },
+    'loggers': {
+        'django': {
+            'handlers': ['mail_admins'],
+            'level': 'ERROR',
+            'propagate': True,
+        },
+    },
+}
+    

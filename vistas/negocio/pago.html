@@ -124,7 +124,7 @@ Carrito
                 <tr>
                     <td>{{ value.modelo }}</td>
                     <td>{{ value.marca }}</td>
-                    <td>${{ value.precio }}</td>
+                    <td>${{ value.precio}}</td>
                     <td>{{ value.cantidad }}
 
                     </td>
@@ -132,24 +132,39 @@ Carrito
 
                 {% endfor %}
 
-                <th scope="col">Total : ${{total}}</th>
+
+
+
+                <th scope="col">Medio de Pago:
+                    <select name="medio_pago" id="medio_pago">
+                        <option value="tarjeta">Tarjeta de crédito</option>
+                        <option value="efectivo">Tarjeta de débito</option>
+                    </select>
+
+                </th>
+                <th> <img src="{% static 'img/transbank.png' %}" alt="Descripción de la imagen" class="tu-clase-css">
+                </th>
                 <tr>
 
-
-                    <th scope="col">Medio de Pago:
-                        <select name="medio_pago" id="medio_pago">
-                            <option value="tarjeta">Tarjeta de crédito</option>
-                            <option value="efectivo">Tarjeta de débito</option>
-                        </select>
-                    </th>
-                    <th> <img src="{% static 'img/transbank.png' %}" alt="Descripción de la imagen"
-                            class="tu-clase-css"></th>
                 <tr>
-
                     <th scope="col">Dirección de envío:</th>
                     <td colspan="3">
-                        <label name="direccion_envio" id="direccion_envio" rows="4" cols="50"></label>
+                        {% if direccion_info %}
+                        {{ direccion_info.direccion }} {{ direccion_info.comuna }} {{ direccion_info.ciudad }}
+                        {# Puedes agregar otros campos según sea necesario #}
+                        {% else %}
+                        <p>No se ha proporcionado una dirección de envío.</p>
+                        {% endif %}
+                <tr>
                     </td>
+                    <th scope="col">Total a Pagar:</th>
+                    <td colspan="3">
+                        ${{total}}
+                    </td>
+                </tr>
+
+
+                </tr>
                 </tr>
                 {% else %}
                 <tr>
@@ -182,6 +197,7 @@ Carrito
         </div>
     </div>
 </div>
+
 {% endblock contenido %}
 
 {% block footer %}
