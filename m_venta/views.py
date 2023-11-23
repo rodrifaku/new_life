@@ -23,6 +23,7 @@ from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 from decouple import config
 from django.core.mail import EmailMessage, send_mail
+from .forms import CategoriaForm
 
 
 def es_administrador(user):
@@ -358,34 +359,35 @@ def historial_ventas(request):
     return render(request, 'negocio/historial_ventas.html', {'compras': compras})
 
 
-@user_passes_test(es_administrador)
 def agregar_categoria(request):
     if request.method == 'POST':
+        form = CategoriaForm(request.POST, request.FILES)
         if form.is_valid():
-            form = CategoriaForm(request.POST)
             form.save()
-            # Redirige a la página de lista de categorías
-            return redirect('lista_categorias')
+            success(request, 'La categoría se agregó exitosamente.')
+            return redirect('agregar_categoria')
+        else:
+            messages.error(
+                request, 'Hubo un error en el formulario. Por favor, corrige los errores e intenta de nuevo.')
     else:
         form = CategoriaForm()
+
     return render(request, 'agregar_categoria.html', {'form': form})
+
 
 
 @login_required
 def direccion_despacho(request):
     user = request.user
     carrito = request.session.get('carrito', {})
+    direccion_info = {}
 
     if not carrito:
-        warning(request, 'Carro vacío',
-                         text="Siga comprando", timer=3000, button="OK")
+        warning(request, 'Carro vacío', text="Siga comprando", timer=3000, button="OK")
         return redirect('mostrar_carrito')
     else:
-
         total = calcular_total(carrito)
-        direccion_existente = DireccionDespacho.objects.filter(
-            user=user).first()
-        print("Direccion existente:", direccion_existente)
+        direccion_existente = DireccionDespacho.objects.filter(user=user).first()
 
         if direccion_existente:
             messages.success(request, 'Ya tienes una dirección guardada.')
@@ -394,25 +396,24 @@ def direccion_despacho(request):
                 'comuna': direccion_existente.comuna,
                 'ciudad': direccion_existente.ciudad,
             }
-            # El usuario ya tiene una dirección, redirigir a la página de pagar
             return render(request, 'negocio/pago.html', {'user': user, 'total': total, 'direccion_info': direccion_info})
         else:
             if request.method == 'POST':
                 form = DireccionDespachoForm(request.POST)
                 if form.is_valid():
                     direccion_despacho = form.save(commit=False)
-                    direccion_despacho.user = user
+                    direccion_despacho.user = request.user  # Asignar el usuario correctamente
                     direccion_despacho.save()
 
-                    messages.success(
-                        request, 'Dirección guardada exitosamente.')
+                    messages.success(request, 'Dirección guardada exitosamente.')
                     return render(request, 'negocio/pago.html', {'user': user, 'total': total, 'direccion_info': direccion_info})
             else:
                 form = DireccionDespachoForm()
 
-            return render(request, 'negocio/realizar_venta.html', {'form': form, 'total': total, 'user': user, 'direccion_despacho': direccion_despacho})
+            return render(request, 'negocio/realizar_venta.html', {'form': form, 'total': total, 'user': user})
 
     return render(request, 'negocio/pago.html', {'direccion_info': direccion_info})
+
 
 
 def calcular_total(carrito):
@@ -458,13 +459,6 @@ class BoletaPDFView(View):
 
 
 @user_passes_test(es_administrador)
-def agregar_categoria(request):
-    formulario_categoria = CategoriaForm()
-
-    return render(request, 'agregar_categoria.html', {'formulario_categoria': formulario_categoria})
-
-
-@user_passes_test(es_administrador)
 def crear_proveedor(request):
     if request.method == 'POST':
         form = ProveedorForm(request.POST)
@@ -481,29 +475,3 @@ def crear_proveedor(request):
 def lista_proveedores(request):
     proveedores = Proveedor.objects.all()
     return render(request, 'lista_proveedores.html', {'proveedores': proveedores})
-
-
-message = Mail(from_email='newlife.tienda.online@gmail.com',
-               to_emails='rfaundez.rodrigo@gmail.com',
-               subject='test',
-               plain_text_content='prueba de envio de correo',
-               html_content='<strong> test test test </strong>')
-try:
-    sg = SendGridAPIClient(os.environ['SENDGRID_API_KEY'])
-    response = sg.send(message)
-    print(response.status_code)
-    print(response.body)
-    print(response.headers)
-
-except Exception as e:
-    print(str(e))
-
-
-send_mail(
-
-    'correo de prueba',
-    'contenido.',
-    ('USER_MAIL'),
-    ['rfaundez.rodrigo@gmail.com'],
-    fail_silently=False,
-)

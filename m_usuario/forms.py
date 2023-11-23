@@ -30,7 +30,8 @@ class FormularioRegistro(UserCreationForm):
             'first_name',
             'email',
             'password1',
-            'password2'
+            'password2',
+            
 
         ]
         widgets = {

@@ -13,7 +13,7 @@ Password
 <a href="{% url 'mostrar_administracion' %}" class="btn btn-primary" aria-label="Comprar ">Volver</a>
 <form method="post">
     {% csrf_token %}
-    {{ formulario_categoria.as_p }}
+    {{ form.as_p }}
     <button type="submit">Guardar</button>
     
 </form>

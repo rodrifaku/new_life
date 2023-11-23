@@ -28,11 +28,7 @@ class ProductoForm(ModelForm):
 class DireccionDespachoForm(ModelForm):
     class Meta:
         model = DireccionDespacho
-        fields = [
-            'direccion',
-            'comuna',
-            'ciudad'
-        ]
+        fields = ['direccion', 'comuna', 'ciudad']
 
 class ProveedorForm(ModelForm):
     class Meta:

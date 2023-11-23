@@ -89,8 +89,7 @@ def profile(request):
                 form.save()
 
                 # Actualiza la dirección de despacho
-                direccion_de_despacho.direccion = form.cleaned_data.get(
-                    'direccion')
+                direccion_de_despacho.direccion = form.cleaned_data.get('direccion')
                 direccion_de_despacho.comuna = form.cleaned_data.get('comuna')
                 direccion_de_despacho.ciudad = form.cleaned_data.get('ciudad')
                 print(form['direccion'].value())
