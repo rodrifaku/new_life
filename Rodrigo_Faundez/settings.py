@@ -12,7 +12,7 @@ EMAIL_FILE_PATH = "/tmp/app-messages"
 EMAIL_USE_TLS = True
 EMAIL_USE_SSL = False
 EMAIL_HOST = ('USER_MAIL_HOST')
-EMAIL_HOST_USER = 'apikey'
+EMAIL_HOST_USER = ('USER_MAIL')
 EMAIL_HOST_PASSWORD = ('USER_MAIL_PASSWORD')
 EMAIL_PORT = 465
 # Quick-start development settings - unsuitable for production
