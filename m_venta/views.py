@@ -239,7 +239,7 @@ def mostrar_boleta(request, id_venta):
     # Configura el asunto, el cuerpo y el remitente del correo
     subject = 'Boleta de compra'
     # Reemplaza USER_MAIL con la variable correcta de configuración
-    from_email = config('USER_MAIL')
+    from_email = ('newlife.tienda.online@gmail.com')
     to_email = [request.user.email]
 
     # Crea un objeto EmailMessage
