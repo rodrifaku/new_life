@@ -10,3 +10,8 @@ tzdata==2023.3
 reportlab==10.1.0
 xhtml2pdf
 sendgrid
+python-decouple
+pycairo
+
+
+sudo yum install cairo-devel
