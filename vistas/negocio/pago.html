@@ -147,13 +147,15 @@ Carrito
                 <tr>
 
                 <tr>
-                    <th scope="col">Dirección de envío:</th>
+                    <th scope="col">Dirección de envío: <a href="{% url 'crear_direccion'%}" class="button">Cambiar</a></th>
+                    
                     <td colspan="3">
                         {% if direccion_info %}
                         {{ direccion_info.direccion }} {{ direccion_info.comuna }} {{ direccion_info.ciudad }}
-                        {# Puedes agregar otros campos según sea necesario #}
+                        
                         {% else %}
                         <p>No se ha proporcionado una dirección de envío.</p>
+                        
                         {% endif %}
                 <tr>
                     </td>

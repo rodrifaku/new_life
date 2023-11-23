@@ -8,6 +8,7 @@ from django.contrib.auth.views import PasswordChangeView, PasswordChangeDoneView
 from django.urls import reverse_lazy
 from .models import CustomUser
 from m_venta.models import DireccionDespacho
+from m_venta.forms import DireccionDespachoForm
 
 
 def mostrar_entrar(request):
@@ -76,40 +77,41 @@ def profile(request):
     if request.user.is_authenticated:
         # Obtén el usuario actualmente autenticado
         user = request.user
-        print(user)
-
         # Obtén la dirección de despacho del usuario (si existe)
-        direccion_de_despacho, created = DireccionDespacho.objects.get_or_create(
-            user=user)
-
+        direccion_despacho = DireccionDespacho.objects.get(user=user)
         if request.method == 'POST':
             # Utiliza la instancia del usuario en el formulario
             form = CustomUserChangeForm(request.POST, instance=user)
-            if form.is_valid():
+            direccion_form = DireccionDespachoForm(
+                request.POST, instance=direccion_despacho)
+            # Verifica si ambos formularios son válidos
+            if direccion_form.is_valid() and form.is_valid():
                 form.save()
+            # Actualiza la dirección de despacho
+            #form.mail
+            
+            direccion_despacho.direccion = direccion_form.cleaned_data.get(
+                'direccion')
+            direccion_despacho.comuna = direccion_form.cleaned_data.get(
+                'comuna')
+            direccion_despacho.ciudad = direccion_form.cleaned_data.get(
+                'ciudad')
+            direccion_despacho.save()
 
-                # Actualiza la dirección de despacho
-                direccion_de_despacho.direccion = form.cleaned_data.get('direccion')
-                direccion_de_despacho.comuna = form.cleaned_data.get('comuna')
-                direccion_de_despacho.ciudad = form.cleaned_data.get('ciudad')
-                print(form['direccion'].value())
-                print(form['comuna'].value())
-                print(form['ciudad'].value())
+            return redirect('profile')
 
-                direccion_de_despacho.save()
-
-                return redirect('profile')
         else:
             # Utiliza la instancia del usuario en el formulario
             form = CustomUserChangeForm(instance=user, initial={
-                                        'direccion': direccion_de_despacho.direccion,
-                                        'comuna': direccion_de_despacho.comuna,
-                                        'ciudad': direccion_de_despacho.ciudad})
+                                        'direccion': direccion_despacho.direccion,
+                                        'comuna': direccion_despacho.comuna,
+                                        'ciudad': direccion_despacho.ciudad})
+            direccion_form = DireccionDespachoForm(instance=direccion_despacho)
 
-        return render(request, 'profile.html', {'form': form})
+        return render(request, 'profile.html', {'form': form, 'direccion_form': direccion_form})
     else:
         # El usuario no está autenticado, redirige a la página de inicio de sesión
-        return redirect('login')
+        return redirect('entrar')
 
 
 class CustomPasswordChangeView(PasswordChangeView):

@@ -190,7 +190,8 @@ def confirmar_compra(request):
 
                 # Verificar si hay suficiente cantidad_web para la compra
                 if producto.cantidad_web < cantidad:
-                    warning(request, f'No hay suficiente stock web para {producto.modelo}')
+                    warning(request, f'No hay suficiente stock web para {
+                            producto.modelo}')
                     return redirect('mostrar_carrito')
 
                 detalleventa = DetalleVenta.objects.create(
@@ -375,7 +376,6 @@ def agregar_categoria(request):
     return render(request, 'agregar_categoria.html', {'form': form})
 
 
-
 @login_required
 def direccion_despacho(request):
     user = request.user
@@ -383,11 +383,13 @@ def direccion_despacho(request):
     direccion_info = {}
 
     if not carrito:
-        warning(request, 'Carro vacío', text="Siga comprando", timer=3000, button="OK")
+        warning(request, 'Carro vacío', text="Siga comprando",
+                timer=3000, button="OK")
         return redirect('mostrar_carrito')
     else:
         total = calcular_total(carrito)
-        direccion_existente = DireccionDespacho.objects.filter(user=user).first()
+        direccion_existente = DireccionDespacho.objects.filter(
+            user=user).first()
 
         if direccion_existente:
             messages.success(request, 'Ya tienes una dirección guardada.')
@@ -405,7 +407,8 @@ def direccion_despacho(request):
                     direccion_despacho.user = request.user  # Asignar el usuario correctamente
                     direccion_despacho.save()
 
-                    messages.success(request, 'Dirección guardada exitosamente.')
+                    messages.success(
+                        request, 'Dirección guardada exitosamente.')
                     return render(request, 'negocio/pago.html', {'user': user, 'total': total, 'direccion_info': direccion_info})
             else:
                 form = DireccionDespachoForm()
@@ -413,7 +416,6 @@ def direccion_despacho(request):
             return render(request, 'negocio/realizar_venta.html', {'form': form, 'total': total, 'user': user})
 
     return render(request, 'negocio/pago.html', {'direccion_info': direccion_info})
-
 
 
 def calcular_total(carrito):
@@ -475,3 +477,27 @@ def crear_proveedor(request):
 def lista_proveedores(request):
     proveedores = Proveedor.objects.all()
     return render(request, 'lista_proveedores.html', {'proveedores': proveedores})
+
+
+from django.db import IntegrityError
+
+@login_required
+def crear_direccion(request):
+    try:
+        direccion_existente = DireccionDespacho.objects.get(user=request.user)
+        direccion_existente.delete()
+    except DireccionDespacho.DoesNotExist:
+        pass
+
+    if request.method == 'POST':
+        form = DireccionDespachoForm(request.POST)
+        if form.is_valid():
+            nueva_direccion = form.save(commit=False)
+            nueva_direccion.user = request.user
+            nueva_direccion.save()
+            return redirect('mostrar_carrito')  # Puedes redirigir a donde desees
+    else:
+        form = DireccionDespachoForm()
+
+    return render(request, 'negocio/crear_direccion.html', {'form': form})
+

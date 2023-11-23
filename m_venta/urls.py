@@ -26,7 +26,8 @@ from .views import (
     BoletaPDFView,
     agregar_categoria,
     crear_proveedor,
-    lista_proveedores
+    lista_proveedores,
+    crear_direccion
 
 )
 
@@ -61,6 +62,7 @@ urlpatterns = [
     path('agregar_categoria',agregar_categoria,name='agregar_categoria'),
     path('lista_proveedores/', lista_proveedores, name='lista_proveedores'),
     path('crear_proveedor/', crear_proveedor, name='crear_proveedor'),
+    path('crear_direccion',crear_direccion, name='crear_direccion')
 
 
 
