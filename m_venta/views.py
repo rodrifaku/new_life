@@ -483,7 +483,7 @@ def lista_proveedores(request):
     return render(request, 'lista_proveedores.html', {'proveedores': proveedores})
 
 
-message = Mail(from_email='USER_MAIL',
+message = Mail(from_email='newlife.tienda.online@gmail.com',
                to_emails='rfaundez.rodrigo@gmail.com',
                subject='test',
                plain_text_content='prueba de envio de correo',
