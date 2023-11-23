@@ -190,8 +190,7 @@ def confirmar_compra(request):
 
                 # Verificar si hay suficiente cantidad_web para la compra
                 if producto.cantidad_web < cantidad:
-                    warning(request, f'No hay suficiente stock web para {
-                            producto.modelo}')
+                    warning(request, f'No hay suficiente stock web para {producto.modelo}')
                     return redirect('mostrar_carrito')
 
                 detalleventa = DetalleVenta.objects.create(
