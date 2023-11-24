@@ -86,14 +86,14 @@ DATABASES = {
     }
 }
 # DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.mysql',
-#        'NAME': 'rodfaundez',
-#       'USER': 'rod.faundez',
-#      'PASSWORD': 'Rod.faundez_2023',
-#    'PORT': 3306
-#     'HOST': '164.152.54.1',
-# }
+#   'default': {
+#   'ENGINE': 'django.db.backends.mysql',
+#   'NAME': 'new_life',
+#   'USER': 'admin',
+#   'PASSWORD': 'fakulin1234',
+#   'PORT': 3306,
+#   'HOST': 'database-2.cpnelid6e1za.us-east-1.rds.amazonaws.com',
+#   }
 # }
 
 
