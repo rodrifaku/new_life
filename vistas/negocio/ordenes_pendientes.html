@@ -80,8 +80,7 @@ Copy code
             <td>{{ orden.boleta.fecha_venta|date:"j F Y" }}</td>
 
             <td><a href="{% url 'mostrar_despacho' orden.boleta.id %}">{{ orden.numero_orden }}</a></td>
-            <!-- Muestra la fecha en un formato específico -->
-            <!-- Otros campos de la orden de despacho, si es necesario -->
+            
         </tr>
         {% endfor %}
     </tbody>

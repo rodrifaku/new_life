@@ -3,7 +3,7 @@
 {% load myfilters %}
 
 {% block titulo %}
-Carrito
+Pago
 {% endblock titulo %}
 
 {% block css %}
@@ -30,23 +30,29 @@ Carrito
         width: 100%;
         height: 100%;
         color: azure;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        flex-direction: column; /* Alinea los elementos verticalmente */
     }
 
     #tabla-contenedor {
-        width: 80%;
+        width: 100%; /* Cambiado para abarcar el ancho completo */
         max-width: 800px;
         background-color: rgba(4, 4, 50, 0.7);
         padding: 20px;
         border: 2px solid #bdbdbd;
         border-radius: 10px;
         color: #333;
-        margin: 0 auto 20px;
+        margin: 20px auto;
+        overflow-x: auto; /* Añadido para manejar la barra de desplazamiento en dispositivos pequeños */
     }
 
     table {
         width: 100%;
         border-collapse: collapse;
-        background-color: white
+        background-color: white;
     }
 
     th,
@@ -64,6 +70,18 @@ Carrito
     th {
         background-color: #040432;
         color: #fff;
+    }
+
+    select {
+        padding: 8px;
+        border-radius: 5px;
+        border: 1px solid #bdbdbd;
+        margin: 5px;
+    }
+
+    .tu-clase-css {
+        max-width: 100%;
+        height: auto;
     }
 
     .button {
@@ -89,17 +107,15 @@ Carrito
 
     .button-container {
         display: flex;
-        /* Activa el modo Flexbox */
         justify-content: space-between;
-        /* Coloca los elementos al principio y al final del contenedor */
         align-items: center;
-        /* Centra verticalmente los elementos si es necesario */
+        margin-top: 10px;
     }
 
-    .button-container a.button,
-    .button-container button {
-        margin: 0;
-        /* Añade espacio entre los elementos si es necesario */
+    @media screen and (max-width: 600px) {
+        #contenedor {
+            justify-content: flex-start; /* Alinea el contenido al principio en dispositivos pequeños */
+        }
     }
 </style>
 {% endblock css %}
@@ -108,7 +124,6 @@ Carrito
 <div id="contenedor">
     <h2>Pago</h2>
     <div id="tabla-contenedor">
-
         <table>
             <thead>
                 <tr>
@@ -126,56 +141,47 @@ Carrito
                     <td>{{ value.marca }}</td>
                     <td>${{ value.precio}}</td>
                     <td>{{ value.cantidad }}
-
                     </td>
                 </tr>
-
                 {% endfor %}
 
-
-
-
-                <th scope="col">Medio de Pago:
-                    <select name="medio_pago" id="medio_pago">
-                        <option value="tarjeta">Tarjeta de crédito</option>
-                        <option value="efectivo">Tarjeta de débito</option>
-                    </select>
-
-                </th>
-                <th> <img src="{% static 'img/transbank.png' %}" alt="Descripción de la imagen" class="tu-clase-css">
-                </th>
                 <tr>
+                    <th scope="col">Medio de Pago:
+                        <select name="medio_pago" id="medio_pago">
+                            <option value="tarjeta">Tarjeta de crédito</option>
+                            <option value="efectivo">Tarjeta de débito</option>
+                        </select>
+                    </th>
+                    <th> <img src="{% static 'img/transbank.png' %}" alt="Descripción de la imagen" class="tu-clase-css">
+                    </th>
+                </tr>
 
                 <tr>
                     <th scope="col">Dirección de envío: <a href="{% url 'crear_direccion'%}" class="button">Cambiar</a></th>
-                    
                     <td colspan="3">
                         {% if direccion_info %}
                         {{ direccion_info.direccion }} {{ direccion_info.comuna }} {{ direccion_info.ciudad }}
-                        
                         {% else %}
                         <p>No se ha proporcionado una dirección de envío.</p>
-                        
                         {% endif %}
-                <tr>
                     </td>
+                </tr>
+
+                <tr>
                     <th scope="col">Total a Pagar:</th>
                     <td colspan="3">
                         ${{total}}
                     </td>
                 </tr>
 
-
-                </tr>
-                </tr>
                 {% else %}
                 <tr>
                     <td colspan="4">
                         <div class="alert alert-danger text-center">Sin Productos</div>
                     </td>
                 </tr>
-
                 {% endif %}
+
                 <tr>
                     <th scope="row"></th>
                     <td colspan="3"></td>
@@ -188,10 +194,8 @@ Carrito
             <div class="col-8">
                 <div class="button-container">
                     <a href="{% url 'mostrar_carrito'%}" class="button">Editar Carrito</a>
-
                     <form method="post" action="{% url 'confirmar_compra' %}">
                         {% csrf_token %}
-                        </tr>
                         <button type="submit" class="button">Comprar</button>
                     </form>
                 </div>
@@ -199,7 +203,6 @@ Carrito
         </div>
     </div>
 </div>
-
 {% endblock contenido %}
 
 {% block footer %}

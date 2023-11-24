@@ -79,22 +79,22 @@ WSGI_APPLICATION = 'Rodrigo_Faundez.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
+# DATABASES = {
+#    'default': {
+#        'ENGINE': 'django.db.backends.sqlite3',
+#        'NAME': join(BASE_DIR / 'db.sqlite3'),
+#    }
+# }
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': join(BASE_DIR / 'db.sqlite3'),
+        'ENGINE': os.getenv('DB_ENGINE'),
+        'NAME': os.getenv('DB_NAME'),
+        'USER': os.getenv('DB_USER'),
+        'PASSWORD': os.getenv('DB_PASSWORD'),
+        'PORT': os.getenv('DB_PORT'),
+        'HOST': os.getenv('DB_HOST'),
     }
 }
-# DATABASES = {
-#   'default': {
-#   'ENGINE': 'django.db.backends.mysql',
-#   'NAME': 'new_life',
-#   'USER': 'admin',
-#   'PASSWORD': 'fakulin1234',
-#   'PORT': 3306,
-#   'HOST': 'database-2.cpnelid6e1za.us-east-1.rds.amazonaws.com',
-#   }
-# }
 
 
 # Password validation
