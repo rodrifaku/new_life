@@ -2,9 +2,7 @@ import os
 from pathlib import Path
 from os.path import join
 from decouple import config
-from dotenv import load_dotenv
 
-load_dotenv()
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -81,22 +79,22 @@ WSGI_APPLICATION = 'Rodrigo_Faundez.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-# DATABASES = {
+#DATABASES = {
 #    'default': {
 #        'ENGINE': 'django.db.backends.sqlite3',
 #        'NAME': join(BASE_DIR / 'db.sqlite3'),
 #    }
-# }
+#}
 DATABASES = {
-    'default': {
-        'ENGINE': os.getenv('DB_ENGINE'),
-        'NAME': os.getenv('DB_NAME'),
-        'USER': os.getenv('DB_USER'),
-        'PASSWORD': os.getenv('DB_PASSWORD'),
-        'PORT': os.getenv('DB_PORT'),
-        'HOST': os.getenv('DB_HOST'),
-    }
-}
+   'default': {
+   'ENGINE': 'django.db.backends.mysql',
+   'NAME': 'newlife',
+   'USER': 'admin',
+   'PASSWORD': 'fakulin1234',
+   'PORT': 3306,
+   'HOST': 'newlife.cpnelid6e1za.us-east-1.rds.amazonaws.com',
+   }
+ }
 
 
 # Password validation
