@@ -81,6 +81,7 @@ Boleta
         </tr>
     </table>
 </div>
+<a href="{% url 'boleta_pdf' id_venta=venta.id %}" target="_blank">Generar PDF</a>
 {% endblock contenido %}
 {% block footer %}
 {% endblock footer %}
